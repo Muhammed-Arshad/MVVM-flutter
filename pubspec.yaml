@@ -38,6 +38,8 @@ dependencies:
   flutter_riverpod: ^2.5.1
   provider: ^6.1.2
   http: ^1.2.1
+  another_flushbar: ^1.12.30
+  fluttertoast: ^8.2.6
 
 dev_dependencies:
   flutter_test:

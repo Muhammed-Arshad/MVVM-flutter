@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:samplep/utils/routes/routes.dart';
+import 'package:samplep/utils/routes/routes_name.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -17,23 +19,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(),
+      initialRoute: RoutesName.login,
+      onGenerateRoute: Routes.generateRoute,
     );
   }
 }
 
-final counterProvider = StateProvider<int>((ref){
-  return 0;
-});
-
-class MyHomePage extends ConsumerWidget{
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref){
-    return Scaffold(
-      body: Center(
-        child: Text('lllll'),
-      ),
-    );
-  }
-}
