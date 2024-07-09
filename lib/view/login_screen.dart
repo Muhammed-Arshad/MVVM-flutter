@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:samplep/repository/auth_repository.dart';
+import 'package:samplep/res/components/round_button.dart';
 import 'package:samplep/utils/utils.dart';
+import 'package:samplep/view_model/auth_view_model.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -22,7 +26,21 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    emailFocus.dispose();
+    passFocus.dispose();
+    _obsecurePassword.dispose();
+    super.dispose();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
+
+    final _authViewModel = Provider.of<AuthViewModel>(context);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -63,7 +81,27 @@ class _LoginScreenState extends State<LoginScreen> {
                         Icon(Icons.visibility):Icon(Icons.visibility_off))
                 ),
               );
-                })
+                }),
+           SizedBox(height: 50,),
+           RoundButton(title: 'Login',
+               loading: _authViewModel.loading,
+               onPress: (){
+                if(_emailController.text.isEmpty){
+                  Utils.flushBarErrorMsg('Enter email', context);
+                }else if(_passwordController.text.isEmpty){
+                  Utils.flushBarErrorMsg('Enter Password', context);
+                }else if(_passwordController.text.length < 6){
+                  Utils.flushBarErrorMsg('Password length must be more than 6', context);
+                }else{
+
+                  Map data = {
+                    'email': _emailController.text.trim(),
+                    'password': _passwordController.text.toString()
+                  };
+
+                  _authViewModel.loginApi(data,context);
+                }
+               })
            ,
           ],
         ),
