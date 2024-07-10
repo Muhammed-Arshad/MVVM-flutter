@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:samplep/repository/auth_repository.dart';
 import 'package:samplep/res/components/round_button.dart';
+import 'package:samplep/utils/routes/routes_name.dart';
 import 'package:samplep/utils/utils.dart';
 import 'package:samplep/view_model/auth_view_model.dart';
 
@@ -101,7 +102,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   _authViewModel.loginApi(data,context);
                 }
-               })
+               }),
+           SizedBox(height: 30,),
+           InkWell(
+             onTap: (){
+               Navigator.pushNamed(context, RoutesName.signup);
+             },
+             child: Text("Don't have an account? Sign up"),
+           )
            ,
           ],
         ),

@@ -23,4 +23,14 @@ class AuthViewModel with ChangeNotifier{
       setLoading(false);
     });
   }
+
+  Future<void> registerApi(dynamic data,BuildContext context) async{
+    setLoading(true);
+    _myRepo.registerApi(data).then((val){
+      Navigator.pushNamed(context, RoutesName.home);
+      setLoading(false);
+    }).onError((e,s){
+      setLoading(false);
+    });
+  }
 }
